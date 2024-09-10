@@ -335,7 +335,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &663377881
@@ -377,7 +378,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585003f74a9d126458006a5cbcb60692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprintMode: 0
   playerspeed: 10
+  playerjumpheight: 5
+  groundDetectdistance: 1
+  sprintMultiplier: 2.5
+  sprintToggleoption: 0
+  mouseSensitivity: 2
+  Xsensitivity: 2
+  Ysensitivity: 2
+  camRotationLimit: 90
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,13 +474,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.66263837, y: -0.1883139, z: 0.1775534, w: 0.7027967}
+  m_LocalRotation: {x: 0.9537453, y: -0.2575233, z: 0.025882667, w: 0.15291122}
   m_LocalPosition: {x: 0.016, y: 3.541, z: -0.028}
   m_LocalScale: {x: 1.1138, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 86.631, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 17.759, y: -178.232, z: -149.503}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +492,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -557,31 +566,17 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 6.329}
+  m_LocalRotation: {x: 0.021842705, y: -0, z: -0, w: 0.99976146}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585003f74a9d126458006a5cbcb60692, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerspeed: 10
+  m_Father: {fileID: 663377880}
+  m_LocalEulerAnglesHint: {x: 2.503, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 28882307}
   - {fileID: 663377880}
