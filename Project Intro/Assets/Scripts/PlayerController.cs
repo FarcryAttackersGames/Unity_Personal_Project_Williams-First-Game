@@ -10,17 +10,24 @@ public class PlayerController : MonoBehaviour
     Vector2 Camrotation;
     public bool sprintMode = false;
     [Header("Movement settings")]
-    public float playerspeed = 10.0f;
+    public float playerspeed = 5.0f;
     public float playerjumpheight = 5f;
-    public float groundDetectdistance = 1f;
-    public float sprintMultiplier = 2.5f;
+    public float groundDetectdistance = 0.1f;
+    public float sprintMultiplier = 5.0f;
 
-[Header("User settings")]
+    [Header("User settings")]
     public bool sprintToggleoption = false;
     public float mouseSensitivity = 2.0f;
-    public float Xsensitivity = 2.0f;
-    public float Ysensitivity = 2.0f;
+    public float xsensitivity = 2.0f;
+    private float ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
+
+    public PlayerController(float mouseSensitivity)
+    {
+        this.mouseSensitivity = mouseSensitivity;
+    }
+
+    public float Ysensitivity {get => ysensitivity; set => ysensitivity = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -45,19 +52,37 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(Camrotation.x, Vector3.up);
 
 
-
         Vector3 temp = myRB.velocity;
 
+        float verticalMove = Input.GetAxisRaw("Vertical");
+        float horizontalMove = Input.GetAxisRaw("Horizontal");
+
         if (!sprintToggleoption)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                sprintMode = true;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-                    sprintMode = true;
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-            sprintMode = false;
+                    if (Input.GetKeyUp(KeyCode.LeftShift))
+                sprintMode = false;
+        }
 
         if (sprintToggleoption)
+        {
+            if (Input.GetKey(KeyCode.LeftShift) && verticalMove > 0)
+                    sprintMode = true;
 
+            if (verticalMove <= 0)
+                sprintMode = false;
+        }
+        {
+            if (!sprintMode)
+                temp.x = verticalMove * playerspeed;
+
+            if (!sprintMode)
+                temp.x = verticalMove * playerspeed * sprintMultiplier;
+            
+            temp.z = horizontalMove * playerspeed;
+        }
             if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0)
                 sprintMode = true;
         if (Input.GetAxisRaw("Vertical") <= 0)
@@ -66,7 +91,7 @@ public class PlayerController : MonoBehaviour
             if (sprintMode)
                 temp.x = Input.GetAxisRaw("Vertical") * playerspeed;
 
-        if (sprintMode)
+        if (!sprintMode)
             temp.x = Input.GetAxisRaw("Vertical") * playerspeed * sprintMultiplier;
 
         if (Input.GetKeyUp(KeyCode.LeftShift))

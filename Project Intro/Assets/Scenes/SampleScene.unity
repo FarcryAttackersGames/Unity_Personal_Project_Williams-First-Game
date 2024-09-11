@@ -221,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 28882303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.08, z: 0.01}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -385,8 +385,7 @@ MonoBehaviour:
   sprintMultiplier: 2.5
   sprintToggleoption: 0
   mouseSensitivity: 2
-  Xsensitivity: 2
-  Ysensitivity: 2
+  xsensitivity: 0
   camRotationLimit: 90
 --- !u!1 &705507993
 GameObject:
@@ -474,13 +473,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9537453, y: -0.2575233, z: 0.025882667, w: 0.15291122}
+  m_LocalRotation: {x: 0.8479198, y: -0.25138167, z: -0.06160698, w: 0.46264884}
   m_LocalPosition: {x: 0.016, y: 3.541, z: -0.028}
   m_LocalScale: {x: 1.1138, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 17.759, y: -178.232, z: -149.503}
+  m_LocalEulerAnglesHint: {x: 48.904, y: -149.149, z: -132.671}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
