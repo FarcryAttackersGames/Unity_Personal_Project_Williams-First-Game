@@ -332,7 +332,7 @@ Transform:
   m_GameObject: {fileID: 663377876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 3.29, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -380,9 +380,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintMode: 0
   playerspeed: 10
+  sprintMultiplier: 2.5
   playerjumpheight: 5
   groundDetectdistance: 1
-  sprintMultiplier: 2.5
   sprintToggleoption: 0
   mouseSensitivity: 2
   xsensitivity: 0
@@ -473,13 +473,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.8479198, y: -0.25138167, z: -0.06160698, w: 0.46264884}
+  m_LocalRotation: {x: 0.77677613, y: -0.0030006857, z: 0.3464006, w: 0.5259435}
   m_LocalPosition: {x: 0.016, y: 3.541, z: -0.028}
   m_LocalScale: {x: 1.1138, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 48.904, y: -149.149, z: -132.671}
+  m_LocalEulerAnglesHint: {x: 55.001, y: -248.868, z: -218.84}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

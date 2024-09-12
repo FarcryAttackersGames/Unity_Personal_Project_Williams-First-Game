@@ -8,12 +8,15 @@ public class PlayerController : MonoBehaviour
     Camera playerCamera;
 
     Vector2 Camrotation;
+
     public bool sprintMode = false;
+
     [Header("Movement settings")]
     public float playerspeed = 5.0f;
+    public float sprintMultiplier = 2.5f;
     public float playerjumpheight = 5f;
-    public float groundDetectdistance = 0.1f;
-    public float sprintMultiplier = 5.0f;
+    public float groundDetectDistance = 1f;
+    
 
     [Header("User settings")]
     public bool sprintToggleoption = false;
@@ -27,7 +30,7 @@ public class PlayerController : MonoBehaviour
         this.mouseSensitivity = mouseSensitivity;
     }
 
-    public float Ysensitivity {get => ysensitivity; set => ysensitivity = value; }
+    public float Ysensitivity {get => ysensitivity; set => ysensitivity = value;}
 
     // Start is called before the first frame update
     void Start()
@@ -51,13 +54,12 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.AngleAxis(Camrotation.y, Vector3.left);
         transform.localRotation = Quaternion.AngleAxis(Camrotation.x, Vector3.up);
 
-
         Vector3 temp = myRB.velocity;
 
         float verticalMove = Input.GetAxisRaw("Vertical");
         float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        if (!sprintToggleoption)
+        if(!sprintToggleoption)
         {
             if (Input.GetKey(KeyCode.LeftShift))
                 sprintMode = true;
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 sprintMode = false;
         }
 
-        if (sprintToggleoption)
+        if(sprintToggleoption)
         {
             if (Input.GetKey(KeyCode.LeftShift) && verticalMove > 0)
                     sprintMode = true;
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             temp.y = playerjumpheight;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectdistance))
+        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
             temp.y = playerjumpheight;
 
         myRB.velocity = (temp.z * transform.forward) + (temp.x * transform.right) + (transform.up * temp.y);
