@@ -9,14 +9,24 @@ public class PlayerController : MonoBehaviour
 
     Vector2 Camrotation;
 
+    public Transform WeaponSlot;
+
     public bool sprintMode = false;
 
-    [Header("Movement settings")]
+    [Header("PlayerStats")]
+    public int maxHealth = 100;
+    public int Health = 100;
+    public int Healthrestore = 25;
+
+    [Header("WeaponStats")]
+    public bool canFire = true
+
+    [Header("Movement settings")
     public float playerspeed = 5.0f;
     public float sprintMultiplier = 2.5f;
-    public float playerjumpheight = 5f;
+    public float playerjumpheight = 1f;
     public float groundDetectDistance = 1f;
-    
+
 
     [Header("User settings")]
     public bool sprintToggleoption = false;
@@ -30,7 +40,7 @@ public class PlayerController : MonoBehaviour
         this.mouseSensitivity = mouseSensitivity;
     }
 
-    public float Ysensitivity {get => ysensitivity; set => ysensitivity = value;}
+    public float Ysensitivity { get => ysensitivity; set => ysensitivity = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +49,7 @@ public class PlayerController : MonoBehaviour
         playerCamera = transform.GetChild(0).GetComponent<Camera>();
 
         Camrotation = Vector2.zero;
-        Cursor.visible =  false;
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -59,19 +69,22 @@ public class PlayerController : MonoBehaviour
         float verticalMove = Input.GetAxisRaw("Vertical");
         float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        if(!sprintToggleoption)
+        temp.x = Input.GetAxisRaw("Horizontal") * playerspeed;
+        temp.z = Input.GetAxisRaw("Vertical") * playerspeed;
+
+        if (!sprintToggleoption)
         {
             if (Input.GetKey(KeyCode.LeftShift))
                 sprintMode = true;
 
-                    if (Input.GetKeyUp(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
                 sprintMode = false;
         }
 
-        if(sprintToggleoption)
+        if (sprintToggleoption)
         {
             if (Input.GetKey(KeyCode.LeftShift) && verticalMove > 0)
-                    sprintMode = true;
+                sprintMode = true;
 
             if (verticalMove <= 0)
                 sprintMode = false;
@@ -82,34 +95,66 @@ public class PlayerController : MonoBehaviour
 
             if (!sprintMode)
                 temp.x = verticalMove * playerspeed * sprintMultiplier;
-            
+
             temp.z = horizontalMove * playerspeed;
+
+            if (sprintToggleoption)
+
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0)
+                    sprintMode = true;
+
+            if (Input.GetAxisRaw("Vertical") <= 0)
+                sprintMode = false;
         }
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxisRaw("Vertical") > 0)
-                sprintMode = true;
-        if (Input.GetAxisRaw("Vertical") <= 0)
-            sprintMode = false;
+        {
+            if (!sprintMode)
+                temp.x = verticalMove * playerspeed;
 
             if (sprintMode)
-                temp.x = Input.GetAxisRaw("Vertical") * playerspeed;
+                temp.x = verticalMove * playerspeed * sprintMultiplier;
 
-        if (!sprintMode)
-            temp.x = Input.GetAxisRaw("Vertical") * playerspeed * sprintMultiplier;
+            temp.z = horizontalMove * playerspeed;
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-            sprintMode = false;
+            if (Input.GetKeyDown(KeyCode.Space))
+                temp.y = playerjumpheight;
 
-        temp.x = Input.GetAxisRaw("Horizontal") * playerspeed;
+            if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
+                temp.y = playerjumpheight;
 
-        temp.z = Input.GetAxisRaw("Vertical") * playerspeed;
+            myRB.velocity = (transform.forward * temp.x) + (transform.right * temp.z) + (transform.up * temp.y);
+        }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            temp.y = playerjumpheight;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((Health < maxHealth) && collision.gameObject.tag == "HealthPickup")
+        {
+            Health += Healthrestore;
 
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
-            temp.y = playerjumpheight;
+            if (Health > maxHealth)
+                Health = maxHealth;
 
-        myRB.velocity = (temp.z * transform.forward) + (temp.x * transform.right) + (transform.up * temp.y);
+            Destroy(collision.gameObject);
+        }
 
+        if (collision.gameObject.tag == "weapon")
+            collision.gameObject.transform.SetParent(WeaponSlot);
+    }
+
+    private void cooldown(bool condition float timelimit)
+    {
+        float timer = 0;
+
+        if (timer < timelimit)
+            timer += Time.deltaTime;
+
+        else
+            condition = true;
+
+    }
+    IEnumerable cooldown(float time)
+    {
+        new WaitForSeconds(time);
+        //canfire = true;
     }
 }
