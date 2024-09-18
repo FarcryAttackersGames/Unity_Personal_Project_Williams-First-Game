@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     public float Ammorestoreamount = 0;
     public float currentClip = 0;
     public float clipsize = 1;
+    public GameObject shot;
+    public float bulletspeed = 15f;
+    public float bulletlifespan = 0;
 
 
     [Header("Movement Settings")]
@@ -73,8 +76,12 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.AngleAxis(Camrotation.y, Vector3.left);
         transform.localRotation = Quaternion.AngleAxis(Camrotation.x, Vector3.up);
 
-        if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0)
+        if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 0)
         {
+            GameObject s = Instantiate(shot, WeaponSlot.position, WeaponSlot.rotation);
+            s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
+            Destroy(s,bulletlifespan);
+
             canFire = false;
             currentClip--;
             StartCoroutine("cooldownFire");
@@ -134,9 +141,6 @@ public class PlayerController : MonoBehaviour
 
             temp.z = horizontalMove * playerspeed;
 
-            if (Input.GetKeyDown(KeyCode.Space))
-                temp.y = playerjumpheight;
-
             if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
                 temp.y = playerjumpheight;
 
@@ -166,6 +170,7 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 60;
                     currentClip = 20;
                     clipsize = 20;
+                    bulletlifespan = 60;
                     break;
 
                 default:
@@ -221,7 +226,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator cooldownfire()
+    IEnumerator cooldownFire()
     {
         yield return new WaitForSeconds(fireRate);
         canFire = true;
