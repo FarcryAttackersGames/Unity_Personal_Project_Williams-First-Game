@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public float Ammorestoreamount = 0;
     public float currentClip = 0;
     public float clipsize = 1;
-    public GameObject shot;
+    public GameObject Shot;
     public float bulletspeed = 15f;
     public float bulletlifespan = 0;
 
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 0)
         {
-            GameObject s = Instantiate(shot, WeaponSlot.position, WeaponSlot.rotation);
+            GameObject s = Instantiate(Shot, WeaponSlot.position, WeaponSlot.rotation);
             s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
             Destroy(s,bulletlifespan);
 
@@ -165,11 +165,11 @@ public class PlayerController : MonoBehaviour
                     firemode = 0;
                     weaponID = 1;
                     fireRate = 0.25f;
-                    maxAmmo = 120;
-                    currentAmmo = 60;
-                    Ammorestoreamount = 60;
+                    maxAmmo = 100;
+                    currentAmmo = 25;
+                    Ammorestoreamount = 25;
                     currentClip = 20;
-                    clipsize = 20;
+                    clipsize = 25;
                     bulletlifespan = 60;
                     break;
 
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
         {
             float reloadCount = clipsize - currentClip;
 
-            if (currentAmmo < reloadCount);
+            if (currentAmmo > reloadCount);
             {
                 currentClip += currentAmmo;
 
