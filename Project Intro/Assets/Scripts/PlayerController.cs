@@ -28,15 +28,15 @@ public class PlayerController : MonoBehaviour
     public float Ammorestoreamount = 0;
     public float currentClip = 0;
     public float clipsize = 1;
-    public GameObject Shot;
+    public GameObject shot;
     public float bulletspeed = 15f;
     public float bulletlifespan = 0;
 
 
     [Header("Movement Settings")]
     public float playerspeed = 5.0f;
-    public float sprintMultiplier = 2.5f;
-    public float playerjumpheight = 1f;
+    public float sprintMultiplier = 1.5f;
+    public float playerjumpheight = 5.0f;
     public float groundDetectDistance = 1f;
 
 
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 0)
         {
-            GameObject s = Instantiate(Shot, WeaponSlot.position, WeaponSlot.rotation);
+            GameObject s = Instantiate(shot, WeaponSlot.position, WeaponSlot.rotation);
             s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
             Destroy(s,bulletlifespan);
 
