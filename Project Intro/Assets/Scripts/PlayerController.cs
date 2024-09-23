@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float playerspeed = 5.0f;
     public float sprintMultiplier = 1.5f;
-    public float playerjumpheight = 5.0f;
+    public float playerjumpheight = 15.0f;
     public float groundDetectDistance = 1f;
 
 
