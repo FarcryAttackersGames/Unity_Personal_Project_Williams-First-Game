@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody myRB;
     Camera playerCamera;
 
+    Transform cameraholder;
+
     Vector2 Camrotation;
 
     public Transform WeaponSlot;
@@ -28,8 +30,8 @@ public class PlayerController : MonoBehaviour
     public float Ammorestoreamount = 0;
     public float currentClip = 0;
     public float clipsize = 1;
-    public GameObject shot;
-    public float bulletspeed = 15f;
+    public GameObject Shot;
+    public float bulletspeed = 15f; 
     public float bulletlifespan = 0;
 
 
@@ -58,7 +60,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
-        playerCamera = transform.GetChild(0).GetComponent<Camera>();
+        playerCamera = Camera.main;
+        cameraholder = transform.GetChild(0);
 
         Camrotation = Vector2.zero;
         Cursor.visible = false;
@@ -68,17 +71,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerCamera.transform.position = cameraholder.position;
+
         Camrotation.x += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
         Camrotation.y += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
 
         Camrotation.y = Mathf.Clamp(Camrotation.y, -camRotationLimit, camRotationLimit);
 
-        playerCamera.transform.localRotation = Quaternion.AngleAxis(Camrotation.y, Vector3.left);
+        playerCamera.transform.rotation = Quaternion.Euler(-Camrotation.y, Camrotation.x, 0);
         transform.localRotation = Quaternion.AngleAxis(Camrotation.x, Vector3.up);
 
         if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 0)
         {
-            GameObject s = Instantiate(shot, WeaponSlot.position, WeaponSlot.rotation);
+            GameObject s = Instantiate(Shot, WeaponSlot.position, WeaponSlot.rotation);
             s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
             Destroy(s,bulletlifespan);
 
@@ -151,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Weapon")
+        if (other.gameObject.tag == "Weapon1")
         {
 
             other.gameObject.transform.SetPositionAndRotation(WeaponSlot.position, WeaponSlot.rotation);
@@ -199,7 +204,7 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
 
-        if (collision.gameObject.tag == "Weapon")
+        if (collision.gameObject.tag == "Weapon1")
             collision.gameObject.transform.SetParent(WeaponSlot);
     }
 
