@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - HealthPickup
-  - Weapon
-  - enemy
+  - BasicEnemy
+  - Weapon1
+  - Shot
   - shot
   layers:
   - Default
