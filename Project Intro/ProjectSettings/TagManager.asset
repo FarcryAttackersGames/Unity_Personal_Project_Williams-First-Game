@@ -9,6 +9,9 @@ TagManager:
   - Weapon1
   - Shot
   - shot
+  - enemy
+  - Weapon
+  - TankEnemy
   layers:
   - Default
   - TransparentFX
