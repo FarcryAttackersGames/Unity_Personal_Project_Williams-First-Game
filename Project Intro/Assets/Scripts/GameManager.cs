@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(SceneManager.GetActiveScene().buildIndex > 0)
         Healthbar.fillAmount = Mathf.Clamp((float)playerData.Health / (float)playerData.maxHealth, 0, 1);
 
         if (playerData.weaponID < 0)
