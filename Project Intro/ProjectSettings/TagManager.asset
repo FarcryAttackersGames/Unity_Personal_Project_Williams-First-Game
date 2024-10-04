@@ -12,6 +12,8 @@ TagManager:
   - enemy
   - Weapon
   - TankEnemy
+  - aa12
+  - shot2
   layers:
   - Default
   - TransparentFX
