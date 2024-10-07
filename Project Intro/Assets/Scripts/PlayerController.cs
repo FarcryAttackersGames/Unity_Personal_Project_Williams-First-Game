@@ -94,9 +94,13 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 1)
         {
-            GameObject s = Instantiate(shot2, WeaponSlot.position, WeaponSlot.rotation);
+            GameObject s = Instantiate(Shot, WeaponSlot.position, WeaponSlot.rotation);
             s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
             Destroy(s, bulletlifespan);
+
+            canFire = false;
+            currentClip--;
+            StartCoroutine("cooldownFire");
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -236,8 +240,20 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
+        if ((currentAmmo < maxAmmo) && collision.gameObject.tag == "aa12")
+        {
+            currentAmmo += Ammorestoreamount;
+
+            if (currentAmmo > maxAmmo)
+                currentAmmo = maxAmmo;
+
+            Destroy(collision.gameObject);
+        }
 
         if (collision.gameObject.tag == "Weapon1")
+            collision.gameObject.transform.SetParent(WeaponSlot);
+
+        if (collision.gameObject.tag == "aa12")
             collision.gameObject.transform.SetParent(WeaponSlot);
     }
 
