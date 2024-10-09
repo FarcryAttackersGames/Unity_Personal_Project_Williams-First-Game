@@ -179,31 +179,6 @@ public class PlayerController : MonoBehaviour
                     break;
 
             }
-            if (other.gameObject.tag == "aa12")
-            {
-                other.gameObject.transform.SetPositionAndRotation(WeaponSlot.position, WeaponSlot.rotation);
-
-                other.gameObject.transform.SetParent(WeaponSlot);
-
-                switch(other.gameObject.name)
-                {
-                    case "aa12":
-                        canFire = true;
-                        firemode = 0;
-                        weaponID = 1;
-                        fireRate = 0.5f;
-                        maxAmmo = 80;
-                        currentAmmo = 10;
-                        Ammorestoreamount = 20;
-                        currentClip = 20;
-                        clipsize = 20;
-                        bulletlifespan = 60;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -226,20 +201,8 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        if ((currentAmmo < maxAmmo) && collision.gameObject.tag == "aa12")
-        {
-            currentAmmo += Ammorestoreamount;
-
-            if (currentAmmo > maxAmmo)
-                currentAmmo = maxAmmo;
-
-            Destroy(collision.gameObject);
-        }
 
         if (collision.gameObject.tag == "Weapon1")
-            collision.gameObject.transform.SetParent(WeaponSlot);
-
-        if (collision.gameObject.tag == "aa12")
             collision.gameObject.transform.SetParent(WeaponSlot);
     }
 

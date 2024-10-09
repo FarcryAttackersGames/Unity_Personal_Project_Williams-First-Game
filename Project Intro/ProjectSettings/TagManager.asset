@@ -14,6 +14,8 @@ TagManager:
   - TankEnemy
   - aa12
   - shot2
+  - Tyrannasaur
+  - Barrett
   layers:
   - Default
   - TransparentFX

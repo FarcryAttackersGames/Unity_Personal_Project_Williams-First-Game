@@ -15,6 +15,7 @@ public class BasicEnemyController : MonoBehaviour
     public int damageTaken = 1;
     public int knockbackForce = 10000;
     public int knockbackForceTaken = 10000;
+    public int playerdetectiondistance = 50;
 
     // Start is called before the first frame update
     void Start()
