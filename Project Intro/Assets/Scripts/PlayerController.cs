@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     Vector2 Camrotation;
 
     public Transform WeaponSlot;
+    public Transform WeaponSlot2;
 
     public bool sprintMode = false;
 
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Settings")]
     public float playerspeed = 5.0f;
-    public float sprintMultiplier = 1.5f;
+    public float sprintMultiplier = 2f;
     public float playerjumpheight = 15.0f;
     public float groundDetectDistance = 1f;
 
@@ -156,16 +157,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Weapon1")
+        
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Weapon")
         {
-
-            other.gameObject.transform.SetPositionAndRotation(WeaponSlot.position, WeaponSlot.rotation);
-
-            other.gameObject.transform.SetParent(WeaponSlot);
-
-            switch(other.gameObject.name)
+            if (WeaponSlot.childCount > 0)
             {
-                case "Weapon1":
+                WeaponSlot.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
+                WeaponSlot.GetChild(0).GetComponent<BoxCollider>().isTrigger = false;
+                WeaponSlot.GetChild(0).SetParent(null);
+                //WeaponSlot.GetChild(0).position = -5 
+            }
+
+
+            collision.gameObject.transform.SetPositionAndRotation(WeaponSlot.position, WeaponSlot.rotation);
+
+            collision.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+            collision.gameObject.transform.SetParent(WeaponSlot);
+
+            switch (collision.gameObject.name)
+            {
+                case "Deagle":
                     canFire = true;
                     firemode = 0;
                     weaponID = 1;
@@ -178,11 +194,51 @@ public class PlayerController : MonoBehaviour
                     bulletlifespan = 60;
                     break;
 
+                case "AA12":
+                    canFire = true;
+                    firemode = 0;
+                    weaponID = 2;
+                    fireRate = 1f;
+                    maxAmmo = 100;
+                    currentAmmo = 20;
+                    Ammorestoreamount = 20;
+                    currentClip = 20;
+                    clipsize = 20;
+                    bulletlifespan = 60;
+                    break;
+
+                case "Barrett":
+                    canFire = true;
+                    firemode = 0;
+                    weaponID = 3;
+                    fireRate = 0.5f;
+                    maxAmmo = 75;
+                    currentAmmo = 75;
+                    Ammorestoreamount = 5;
+                    currentClip = 5;
+                    clipsize = 5;
+                    bulletlifespan = 60;
+                    break;
+
+                case "Tyrannesaur":
+                    canFire = true;
+                    firemode = 0;
+                    weaponID = 4;
+                    fireRate = 5f;
+                    maxAmmo = 15;
+                    currentAmmo = 15;
+                    Ammorestoreamount = 1;
+                    currentClip = 1;
+                    clipsize = 1;
+                    bulletlifespan = 60;
+                    break;
+
+                default:
+                    break;
+
             }
         }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
+
         if ((Health < maxHealth) && collision.gameObject.tag == "HealthPickup")
         {
             Health += Healthrestore;
@@ -204,6 +260,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Weapon1")
             collision.gameObject.transform.SetParent(WeaponSlot);
+
+        if (collision.gameObject.tag == "AA12")
+            collision.gameObject.transform.SetParent(WeaponSlot2);
     }
 
     public void reloadClip()
