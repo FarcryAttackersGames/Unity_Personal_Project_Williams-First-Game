@@ -12,10 +12,10 @@ TagManager:
   - enemy
   - Weapon
   - TankEnemy
-  - aa12
   - shot2
   - Tyrannasaur
   - Barrett
+  - AA12
   layers:
   - Default
   - TransparentFX
