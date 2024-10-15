@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
                 WeaponSlot.GetChild(0).GetComponent<Rigidbody>().isKinematic = false;
                 WeaponSlot.GetChild(0).GetComponent<BoxCollider>().isTrigger = false;
                 WeaponSlot.GetChild(0).SetParent(null);
-                //WeaponSlot.GetChild(0).position = -5 
+                //WeaponSlot.GetChild(0).position = 0 
             }
 
 
@@ -220,10 +220,23 @@ public class PlayerController : MonoBehaviour
                     bulletlifespan = 60;
                     break;
 
-                case "Tyrannesaur":
+                case "RN50":
                     canFire = true;
                     firemode = 0;
                     weaponID = 4;
+                    fireRate = 10f;
+                    maxAmmo = 20;
+                    currentAmmo = 5;
+                    Ammorestoreamount = 1;
+                    currentClip = 1;
+                    clipsize = 1;
+                    bulletlifespan = 60;
+                    break;
+
+                case "Tyrannesaur":
+                    canFire = true;
+                    firemode = 0;
+                    weaponID = 5;
                     fireRate = 5f;
                     maxAmmo = 15;
                     currentAmmo = 15;
@@ -232,6 +245,7 @@ public class PlayerController : MonoBehaviour
                     clipsize = 1;
                     bulletlifespan = 60;
                     break;
+
 
                 default:
                     break;
