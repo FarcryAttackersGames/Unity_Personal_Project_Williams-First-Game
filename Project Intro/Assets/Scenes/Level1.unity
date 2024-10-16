@@ -899,6 +899,10 @@ PrefabInstance:
       propertyPath: bulletspeed
       value: 100000
       objectReference: {fileID: 0}
+    - target: {fileID: 6680389132945184024, guid: b333ae2a867c4d143b921ee9df3193b5, type: 3}
+      propertyPath: weaponSpeaker
+      value: 
+      objectReference: {fileID: 3469287837083670591}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

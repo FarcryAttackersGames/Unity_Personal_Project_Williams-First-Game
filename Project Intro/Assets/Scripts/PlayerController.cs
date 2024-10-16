@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public int Healthrestore = 25;
 
     [Header("WeaponStats")]
+    public AudioSource weaponSpeaker;
     public bool canFire = true;
     public int firemode = 0;
     public int weaponID = 0;
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && canFire && currentClip > 0 && weaponID >= 0)
         {
+            weaponSpeaker.Play();
             GameObject s = Instantiate(Shot, WeaponSlot.position, WeaponSlot.rotation);
             s.GetComponent<Rigidbody>().AddForce(playerCamera.transform.forward * bulletspeed);
             Destroy(s,bulletlifespan);
