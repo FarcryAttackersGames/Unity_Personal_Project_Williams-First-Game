@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public float clipsize = 1;
     public GameObject Shot;
     public GameObject shot2;
+    public GameObject Key;
     public float bulletspeed = 15f; 
     public float bulletlifespan = 0;
 
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
     public float xsensitivity = 2.0f;
     private float ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
+
+    public GameObject Door1;
 
     public PlayerController(float mouseSensitivity)
     {
@@ -193,7 +196,7 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 25;
                     currentClip = 20;
                     clipsize = 25;
-                    bulletlifespan = 60;
+                    bulletlifespan = 5;
                     break;
 
                 case "AA12":
@@ -206,7 +209,7 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 20;
                     currentClip = 20;
                     clipsize = 20;
-                    bulletlifespan = 60;
+                    bulletlifespan = 5;
                     break;
 
                 case "Barrett":
@@ -219,7 +222,7 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 5;
                     currentClip = 5;
                     clipsize = 5;
-                    bulletlifespan = 60;
+                    bulletlifespan = 5;
                     break;
 
                 case "RN50":
@@ -232,7 +235,7 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 1;
                     currentClip = 1;
                     clipsize = 1;
-                    bulletlifespan = 60;
+                    bulletlifespan = 5;
                     break;
 
                 case "Tyrannesaur":
@@ -245,9 +248,21 @@ public class PlayerController : MonoBehaviour
                     Ammorestoreamount = 1;
                     currentClip = 1;
                     clipsize = 1;
-                    bulletlifespan = 60;
+                    bulletlifespan = 5;
                     break;
 
+                case "DoorKey":
+                    canFire = false;
+                    firemode = 0;
+                    weaponID = 6;
+                    fireRate = 5f;
+                    maxAmmo = 1;
+                    currentAmmo = 1;
+                    Ammorestoreamount = 0;
+                    currentClip = 0;
+                    clipsize = 0;
+                    bulletlifespan = 5;
+                    break;
 
                 default:
                     break;
@@ -277,8 +292,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Weapon1")
             collision.gameObject.transform.SetParent(WeaponSlot);
 
-        if (collision.gameObject.tag == "AA12")
-            collision.gameObject.transform.SetParent(WeaponSlot2);
+        if (collision.gameObject.tag == "shot")
+            Destroy(collision.gameObject);
+
+        if (collision.gameObject.tag == "Key")
+            Destroy(collision.gameObject);
+            
+
     }
 
     public void reloadClip()
