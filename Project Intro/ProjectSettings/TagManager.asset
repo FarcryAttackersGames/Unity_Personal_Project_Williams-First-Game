@@ -16,6 +16,9 @@ TagManager:
   - Tyrannasaur
   - Barrett
   - AA12
+  - Button
+  - Door
+  - Key
   layers:
   - Default
   - TransparentFX
