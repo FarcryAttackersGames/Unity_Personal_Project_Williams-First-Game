@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int sceneID)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneID);
     }
 

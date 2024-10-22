@@ -53,8 +53,6 @@ public class PlayerController : MonoBehaviour
     private float ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
 
-    public GameObject Door1;
-
     public PlayerController(float mouseSensitivity)
     {
         this.mouseSensitivity = mouseSensitivity;
@@ -294,10 +292,6 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "shot")
             Destroy(collision.gameObject);
-
-        if (collision.gameObject.tag == "Key")
-            Destroy(collision.gameObject);
-            
 
     }
 
