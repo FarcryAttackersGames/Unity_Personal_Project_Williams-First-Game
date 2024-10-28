@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody myRB;
     Camera playerCamera;
+    GameManager gm;
 
     Transform cameraholder;
 
@@ -33,8 +34,6 @@ public class PlayerController : MonoBehaviour
     public float currentClip = 0;
     public float clipsize = 1;
     public GameObject Shot;
-    public GameObject shot2;
-    public GameObject Key;
     public float bulletspeed = 15f; 
     public float bulletlifespan = 0;
 
@@ -66,6 +65,7 @@ public class PlayerController : MonoBehaviour
         myRB = GetComponent<Rigidbody>();
         playerCamera = Camera.main;
         cameraholder = transform.GetChild(0);
+        gm = GameObject.Find("Finish").GetComponent<GameManager>();
 
         Camrotation = Vector2.zero;
         Cursor.visible = false;
@@ -277,7 +277,11 @@ public class PlayerController : MonoBehaviour
 
             Destroy(collision.gameObject);
         }
-        if ((currentAmmo < maxAmmo) && collision.gameObject.tag == "Weapon1")
+        {
+            if (collision.gameObject.tag == "Enemy")
+                Health -= Healthrestore;
+        }
+        if ((currentAmmo > maxAmmo) && collision.gameObject.tag == "AmmoBox")
         {
             currentAmmo += Ammorestoreamount;
 
@@ -293,12 +297,23 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "shot")
             Destroy(collision.gameObject);
 
-    }
+        if (collision.gameObject.tag == "Door")
+            Destroy(collision.gameObject);
+
+            if (collision.gameObject.tag == "Victory")
+            {
+                gm.LoadLevel(2);
+            }
+        }
+
+    
 
     public void reloadClip()
     {
-        if (currentClip >= clipsize)
-            return;
+    if (currentClip >= clipsize)
+        {
+        return;
+        }
 
         else;
         {

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex > 0)
         playerData = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
             Clip.gameObject.SetActive(true);
             Ammo.gameObject.SetActive(true);
 
-            Clip.text = "Current Mag" + playerData.currentAmmo + "/" + playerData.clipsize;
+            Clip.text = "Clip" + playerData.currentAmmo + "/" + playerData.clipsize;
             Ammo.text = "Ammo" + playerData.currentAmmo;
         }
 
@@ -57,6 +58,14 @@ public class GameManager : MonoBehaviour
         else
             Resume();
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Victory")
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
     public void Resume()
     {
         Pausemenu.SetActive(false);
@@ -85,4 +94,5 @@ public class GameManager : MonoBehaviour
     {
         LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
+
 }
